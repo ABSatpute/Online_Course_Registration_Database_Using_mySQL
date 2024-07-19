@@ -1,0 +1,175 @@
+USE OnlineCourseRegistration;
+
+-- Create a table to store departments
+CREATE TABLE Faculty (
+    Faculty_ID INT ,
+    Faculty_Name VARCHAR(100),
+    Faculty_code VARCHAR(20),
+    primary key(faculty_id,faculty_code)
+    
+);
+
+-- Create a table to store instructor information
+CREATE TABLE Instructors (
+    Instructor_ID INT PRIMARY key AUTO_INCREMENT,
+    First_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Phone_no INT,
+    Faculty_ID INT,
+    Email VARCHAR(100) UNIQUE,
+    FOREIGN KEY (Faculty_ID) REFERENCES Faculty(Faculty_ID)
+);
+
+
+-- Create a table to store course information
+CREATE TABLE Courses (
+    Course_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Course_Name VARCHAR(100),
+    Seats INT,
+    Fees DECIMAL(10,2),
+    Faculty_ID INT,
+    Instructor_ID INT,
+    FOREIGN KEY (Faculty_ID) REFERENCES Faculty(Faculty_ID),
+    FOREIGN KEY (Faculty_code) REFERENCES Faculty(Faculty_code)
+    FOREIGN KEY (Instructor_ID) REFERENCES Instructors(Instructor_ID)
+);
+
+
+-- Create a table to store student information
+CREATE TABLE Students_Registration (
+    Student_ID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Email VARCHAR(100) UNIQUE,
+    Phone INT,
+    Address VARCHAR(255),
+    Course_ID INT,
+    Registration_ID INT AUTO_INCREMENT,
+    Registration_Date DATE,
+    Instructor_ID INT,
+    Faculty_ID INT,
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID),
+    FOREIGN KEY (Instructor_ID) REFERENCES Instructors(Instructor_ID),
+    FOREIGN KEY (Faculty_ID) REFERENCES Faculty(Faculty_ID)
+);
+
+
+
+
+-- Create a table to store student enrollments
+CREATE TABLE Enrollments (
+    Enrollment_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Student_ID INT,
+    Course_ID INT,
+    Enrollment_Date DATE,
+    FOREIGN KEY (Student_ID) REFERENCES Students_Registration(Student_ID),
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
+);
+
+-- Create a table to store payment information
+CREATE TABLE Payment_Information (
+    Payment_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Enrollment_ID INT,
+    Payment_Date DATE,
+    Course_ID INT,
+    Fees DECIMAL(10, 2),
+    Transaction_ID VARCHAR(30),
+    FOREIGN KEY (Enrollment_ID) REFERENCES Enrollments(Enrollment_ID),
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
+);
+ CREATE TABLE Feedback (
+    Feedback_ID INT PRIMARY KEY,
+    Course_ID INT,
+    student_ID INT,
+    Rating INT,
+    Comments TEXT,
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID),
+    FOREIGN KEY (student_ID) REFERENCES students_Registration(student_ID)
+);
+[19-07-2024 05:59 PM] Manisha IMCA: use OCS;
+
+
+-- Create a table to store student information
+CREATE TABLE Students (
+    Student_ID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50)not null,
+    LastName VARCHAR(50)not null,
+    DateOfBirth DATE not null,
+    Email VARCHAR(100) UNIQUE,
+    Phone varchar(20),
+    Gender varchar(20),
+    Address VARCHAR(255) 
+   );
+
+-- Create a table to store departments
+CREATE TABLE Faculty (
+    Faculty_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Faculty_Name VARCHAR(100) not null,
+    Faculty_code VARCHAR(20) not null
+);
+
+-- Create a table to store instructor information
+CREATE TABLE Instructors (
+    Instructor_ID INT PRIMARY key AUTO_INCREMENT,
+    First_Name VARCHAR(50) not null,
+    Last_Name VARCHAR(50) not null,
+    Phone_no INT,
+    Faculty_ID INT,
+    Email VARCHAR(100) UNIQUE,
+    FOREIGN KEY (Faculty_ID) REFERENCES Faculty(Faculty_ID)
+);
+
+-- Create a table to store course information
+CREATE TABLE Courses (
+    Course_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Course_Name VARCHAR(100) not null,
+    Seats INT,
+    Fees DECIMAL(10,2),
+    Faculty_ID INT,
+    Instructor_ID INT,
+    FOREIGN KEY (Faculty_ID) REFERENCES Faculty(Faculty_ID),
+    FOREIGN KEY (Instructor_ID) REFERENCES Instructors(Instructor_ID)
+);
+
+
+-- Create a table to store student enrollments
+CREATE TABLE Enrollments (
+    Enrollment_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Student_ID INT,
+    Course_ID INT,
+    Enrollment_Date DATE,
+    FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
+);
+
+-- Create a table to store payment information
+CREATE TABLE PaymentInformation (
+    Payment_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Enrollment_ID INT,
+    Payment_Date DATE,
+    student_ID int not null,
+    Course_ID INT,
+    Fees DECIMAL(10, 2),
+    Transaction_ID VARCHAR(30),
+    FOREIGN KEY (Enrollment_ID) REFERENCES Enrollments(Enrollment_ID),
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID)
+);
+
+-- Create a table to store student registrations
+CREATE TABLE Registrations (
+    Registration_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Student_ID INT,
+    Registration_Date DATE,
+    FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID)
+);
+CREATE TABLE Feedback (
+    Feedback_ID INT PRIMARY KEY,
+    Course_ID INT,
+    student_ID INT,
+    Rating INT,
+    Comments TEXT,
+    Timestamp DATETIME,
+    FOREIGN KEY (Course_ID) REFERENCES Courses(Course_ID),
+    FOREIGN KEY (student_ID) REFERENCES students(student_ID)
+);
