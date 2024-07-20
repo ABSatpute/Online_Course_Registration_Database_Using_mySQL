@@ -1,2 +1,1 @@
-#online course registration
-![image](https://github.com/user-attachments/assets/1401981d-6618-41a4-b3ab-762852db51ce)
+![image](https://github.com/user-attachments/assets/da859c4e-d9f4-4c85-89d9-72a3324b13bc)
