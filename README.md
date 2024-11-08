@@ -44,6 +44,7 @@ Answer::
     -> FROM feedback f
     -> JOIN students_registration s ON f.student_id = s.student_id
     -> WHERE f.course_id = '109';
+    
 Question.5::
 Calculate the average salary of instructors in a specific department.
 
@@ -115,6 +116,7 @@ FROM students_registration
 WHERE course_id = 101;
 
 Question 11 : Can you provide the enrollment details, including course information and payment details, for a specific student?
+
 Answer:
 SELECT
     Students_Registration.FirstName,
@@ -137,7 +139,7 @@ WHERE
 
 Question 12 :: Calculate Total Fees Collected
 
-answer
+answer:
 
 SELECT SUM(Fees) AS TotalFeesCollected
 FROM Payment_Information;
